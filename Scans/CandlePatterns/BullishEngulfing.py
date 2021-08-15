@@ -34,13 +34,9 @@ class BullishEngulfing(Scan):
             technicals = Technicals(symbol, timeSeries, apiProvider=apiProvider)
             close0 = technicals.Close(candleSize)
             open0 = technicals.Open(candleSize)
-            low0 = technicals.Low(candleSize)
-            high0 = technicals.High(candleSize)
 
             close1 = technicals.Close(candleSize, 1);
             open1 = technicals.Open(candleSize, 1)
-            low1 = technicals.Low(candleSize, 1)
-            high1 = technicals.High(candleSize, 1)
 
             if open0 < close0 and  open1 > close1  and close0 > open1 and open0 < close1:
                 return True
