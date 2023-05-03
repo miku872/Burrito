@@ -4,7 +4,7 @@ class ResistanceBreakWithHighVolumes(Strategy):
     def __init__(self):
         pass
 
-    def runStrategy(self, apiProvider, symbol, initialCap=100000):
+    def runBackTest(self, apiProvider, symbol, initialCap=100000):
         return
     # yet to be written
     # hit = []

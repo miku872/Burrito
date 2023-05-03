@@ -1,5 +1,7 @@
 from Utils.ClassResolverFactory import getApiProvider, getScanner
+from Utils.Symbols import getNifty500List
 from Utils.Symbols import getNifty50List
+
 from flask import request, jsonify, Response
 
 

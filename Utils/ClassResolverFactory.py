@@ -1,7 +1,8 @@
 from pydoc import locate
 
 strategyMap = {"CPCross50DayMA" : "Strategy.CPCross50DayMA.CPCross50DayMA",
-               "20DayMACrossOver50DayMA" : "Strategy.Day20MACrossOverDay50MA.Day20MACrossOverDay50MA"}
+               "20DayMACrossOver50DayMA" : "Strategy.Day20MACrossOverDay50MA.Day20MACrossOverDay50MA",
+               "5DayMACrossOver20DayMA" : "Strategy.Day5MACrossOverDay20MA.Day5MACrossOverDay20MA"}
 apiProviderMap = {"AngelSmartApi": "ApiProviders.AngelSmartApi.ClassResolver.ApiProvider.ApiProvider",
                   "AlphaVantage" : "ApiProviders.AlphaVantage.ClassResolver.ApiProvider.ApiProvider"}
 scannersMap = {"Hammer": "Scans.CandlePatterns.Hammer.Hammer", "ReverseHammer": "Scans.CandlePatterns.ReverseHammer.ReverseHammer",
@@ -15,9 +16,11 @@ scannersMap = {"Hammer": "Scans.CandlePatterns.Hammer.Hammer", "ReverseHammer": 
                "50DaySMACross100DaySMAFromAbove": "Scans.MACrossOver.Day50SMACrossDay100SMAFromAbove.Day50SMACrossDay100SMAFromAbove",
                "50DaySMACross200DaySMAFromAbove": "Scans.MACrossOver.Day50SMACrossDay200SMAFromAbove.Day50SMACrossDay200SMAFromAbove",
                "20DaySMACross200DaySMAFromAbove": "Scans.MACrossOver.Day20SMACrossDay200SMAFromAbove.Day20SMACrossDay200SMAFromAbove",
+               "5DaySMACross20DaySMAFromBelow": "Scans.MACrossOver.Day5SMACrossDay20SMAFromBelow.Day5SMACrossDay20SMAFromBelow",
+               "5DaySMACross20DaySMAFromAbove": "Scans.MACrossOver.Day5SMACrossDay20SMAFromAbove.Day5SMACrossDay20SMAFromAbove",
 
                }
-def getClassObject(className):
+def getStrategy(className):
     my_class = locate(strategyMap[className])
     return my_class()
 

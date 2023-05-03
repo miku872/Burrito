@@ -36,3 +36,6 @@ class Parser:
         df.sort_index(inplace=True, ascending=True)
         df = df[self.metaDataColumns]
         return df
+
+    # def parsePositions(self, response):
+

@@ -11,7 +11,7 @@ class CPCrossMA(Strategy):
     def __init__(self, params):
         self.params = params
 
-    def runStrategy(self, apiProvider, symbol, initialCap=100000):
+    def runBackTest(self, apiProvider, symbol, initialCap=100000):
 
         if "candleSize" in self.params.keys():
             candleSize = self.params['candleSize']

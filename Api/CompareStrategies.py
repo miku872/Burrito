@@ -1,8 +1,8 @@
 from flask import request, jsonify, Response
-from Utils.ClassResolverFactory import getClassObject
+from Utils.ClassResolverFactory import getStrategy
 from Utils.ClassResolverFactory import getApiProvider
 
-from Api.BackTest import RunBackTest
+from api.BackTest import runBackTest
 from Utils.Symbols import getNifty50List
 
 
@@ -12,23 +12,25 @@ def compare():
             strategies = request.args['strategies'].strip().split(",")
         else:
             raise
-        if 'instruments' in request.args:
+        if 'instruments' in request.args and len(request.args['instruments']) > 0:
             symbols = request.args['instruments'].strip().split(",")
+        else:
+            symbols = getNifty50List()
 
         if 'apiProvider' in request.args:
             apiProviderName = request.args['apiProvider']
             apiProvider = getApiProvider(apiProviderName)
 
-        else:
-            symbols = getNifty50List()
+
         response = {"result": []}
 
         for strategyName in strategies:
             returns = 0
             i = 0
-            strategy = getClassObject(strategyName)
+            strategy = getStrategy(strategyName)
             for symbol in symbols:
-                returnsForSymbol = RunBackTest(strategy, symbol, apiProvider)
+                print(symbol)
+                returnsForSymbol = runBackTest(strategy, symbol, apiProvider)
                 if returnsForSymbol is not None:
                     returns += returnsForSymbol
                     i += 1

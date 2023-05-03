@@ -21,8 +21,8 @@ def isMACrossOver(symbol,
             data0 = EMA.getEMA(symbol, windows[0], candleSize, timeSeries=timeSeries)
             timeseries = SMA.getEMA(symbol, windows[1], candleSize, timeSeries=data0)
 
-        timeseries['Signal'] = timeseries[maType + str(windows[0])] - timeseries[maType + str(windows[1])]
-        timeseries['Position'] = (timeseries['Signal'].apply(np.sign) + 1) / 2
+        timeseries.loc[:, 'Signal'] = timeseries[maType + str(windows[0])] - timeseries[maType + str(windows[1])]
+        timeseries.loc[:, 'Position'] = (timeseries['Signal'].apply(np.sign) + 1) / 2
 
         isValidCrossOver0 = timeSeries['Position'].values[-1] - timeSeries['Position'].values[-2]
         isValidCrossOver1 = timeSeries['Position'].values[-1] - timeSeries['Position'].values[-3]

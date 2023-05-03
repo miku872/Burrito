@@ -1,16 +1,15 @@
-from Scans.MACrossOver.Day20SMACrossDay50SMAFromAbove import Day20SMACrossDay50SMAFromAbove
-from Scans.MACrossOver.Day20SMACrossDay50SMAFromBelow import Day20SMACrossDay50SMAFromBelow
+from Scans.MACrossOver.Day5SMACrossDay20SMAFromBelow import Day5SMACrossDay20SMAFromBelow
+from Scans.MACrossOver.Day5SMACrossDaySMAFromAbove import Day5SMACrossDay20SMAFromAbove
 from Strategy.Strategy import Strategy
 from Strategy.MACrossOver.MACrossOver import MACrossOver
 from pojo.AbstractOrder import AbstractOrder
 
-
-class Day20MACrossOverDay50MA(Strategy):
+class Day5MACrossOverDay20MA(Strategy):
 
     params = {}
 
     def __init__(self):
-        self.params = {"candleSize": "DAILY", "windows": [20, 50], "maType": "SMA"}
+        self.params = {"candleSize": "DAILY", "windows": [5, 20], "maType": "SMA"}
 
     def runBackTest(self, apiProvider, symbol, initialCap=100000):
         strategy = MACrossOver(self.params)
@@ -41,9 +40,9 @@ class Day20MACrossOverDay50MA(Strategy):
         symbol_map = {}
         for position in positions.data:
             if symbol_map.get(position.symbolname):
-                symbol_map[position.symbolname] += position.netqty
+                symbol_map[position.symbolname] += position.buyqty
             else:
-                symbol_map[position.symbolname] = position.netqty
+                symbol_map[position.symbolname] = position.buyqty
 
         for holding in holdings.data:
             if symbol_map.get(holding.symbolname):
@@ -52,13 +51,14 @@ class Day20MACrossOverDay50MA(Strategy):
                 symbol_map[holding.symbolname] = holding.quantity
 
         for symbol in symbolList:
-            buyScan = Day20SMACrossDay50SMAFromBelow()
-            sellScan = Day20SMACrossDay50SMAFromAbove()
+            buyScan = Day5SMACrossDay20SMAFromBelow()
+            sellScan = Day5SMACrossDay20SMAFromAbove()
             if buyScan.isCriteriaMet(symbol, candleSize, apiProvider):
                 if(symbol_map.get(symbol)):
                     continue
                 else:
                     try:
+                        print("buying  " + symbol)
                         ltp = apiProvider.get_ltp(symbol)
                         quantity = int(15000/ltp)
                         orderParams = {"variety" : "REGULAR", "order_type" : "MARKET", "transaction_type" : "BUY",
@@ -87,6 +87,8 @@ class Day20MACrossOverDay50MA(Strategy):
 
                         quantity = sellQuantity
                         if quantity > 0:
+                            print("selling  " + symbol)
+
                             orderParams = {"variety": "REGULAR", "order_type": "MARKET", "transaction_type": "SELL",
                                            "exchange": "NSE", "quantity": quantity, "duration": "DAY",
                                            "symbol": symbol, "product_type": "DELIVERY"}

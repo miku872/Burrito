@@ -19,5 +19,5 @@ def getSMA(symbol, window, candleSize, apiProvider=None, timeSeries=None, interv
         df_mask = (interval[0] < timeSeries['timestamp']) & (timeSeries['timestamp'] < interval[1])
         timeSeries = timeSeries[df_mask]
 
-    timeSeries['SMA'+str(window)] = timeSeries['Close'].rolling(window=window).mean()
+    timeSeries.loc[:, 'SMA' + str(window)] = timeSeries['Close'].rolling(window=window).mean()
     return timeSeries

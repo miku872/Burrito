@@ -12,7 +12,7 @@ failedList=[]
 
 def resistanceBreakWithHighVolumes(symbol, candleSize, resistanceLevel):
     hit = []
-    apiProvider = ApiProvider()
+    apiProvider = ApiProvider.getInstance()
     timeseries = start.getSeries(apiProvider, symbol, candleSize)
     if timeseries is not None:
         technicals = Technicals(symbol, timeseries)
@@ -27,7 +27,7 @@ def resistanceBreakWithHighVolumes(symbol, candleSize, resistanceLevel):
 
 def priceGreaterThanSMAWithHighVolumes(symbol, candleSize, smaCPWindow=50, smaVolumeWindow=20):
 
-    apiProvider = ApiProvider()
+    apiProvider = ApiProvider.getInstance()
     timeseries = start.getSeries(apiProvider, symbol, candleSize)
     if timeseries is not None:
         technicals = Technicals(symbol, timeseries)

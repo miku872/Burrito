@@ -7,7 +7,7 @@ def getResponse(url):
         data = response.json()
         return data
     except:
-        print("error accessing the Api")
+        print("error accessing the api")
         raise
 
 # def getResponse(uri, method, authToken, params, Bearer):

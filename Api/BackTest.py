@@ -1,7 +1,6 @@
 from flask import request, jsonify, Response
-from Utils.ClassResolverFactory import getClassObject
+from Utils.ClassResolverFactory import getStrategy
 from Utils.ClassResolverFactory import getApiProvider
-
 
 def run():
     try:
@@ -13,9 +12,9 @@ def run():
         if 'apiProvider' in request.args:
             apiProviderName = request.args['apiProvider']
             apiProvider = getApiProvider(apiProviderName)
-        strategy = getClassObject(strategyName)
+        strategy = getStrategy(strategyName)
 
-        returns = RunBackTest(strategy, symbol, apiProvider)
+        returns = runBackTest(strategy, symbol, apiProvider)
         if returns is not None:
             response = jsonify({"returns": round(returns, 2)})
         else:
@@ -25,6 +24,6 @@ def run():
         Response("{'message':"+e+"'}", status=500, mimetype='application/json')
 
 
-def RunBackTest(strategy, symbol, apiProvider):
-    returns = strategy.runStrategy(apiProvider, symbol)
+def runBackTest(strategy, symbol, apiProvider):
+    returns = strategy.runBackTest(apiProvider, symbol)
     return returns

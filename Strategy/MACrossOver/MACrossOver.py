@@ -12,7 +12,7 @@ class MACrossOver(Strategy):
     def __init__(self, params):
         self.params = params
 
-    def runStrategy(self, apiProvider, symbol, initialCap=100000):
+    def runBackTest(self, apiProvider, symbol, initialCap=100000):
 
         if "candleSize" in self.params.keys():
             candleSize = self.params['candleSize']
@@ -47,6 +47,7 @@ class MACrossOver(Strategy):
 
             timeseries['Signal'] = timeseries[maType + str(windows[0])] - timeseries[maType + str(windows[1])]
             timeseries['Position'] = (timeseries['Signal'].apply(np.sign) + 1) / 2
+            # print(timeseries.to_string())
             entered = 0
             stocksPurchased = 0
             entryPrice = 0
@@ -61,8 +62,13 @@ class MACrossOver(Strategy):
                 if entered and (row['Position'] <= 0 or spotPrice < 0.95 * entryPrice):
                     initialCap = initialCap + stocksPurchased * spotPrice
                     entered = 0
+                    stocksPurchased = 0
+                    exitPrice = spotPrice
             if entered:
                 initialCap += stocksPurchased * spotPrice
             # print(initialCap-initialCapCopy)
 
             return ((initialCap - initialCapCopy) / initialCapCopy) * 100
+
+    def deployStrategy(self, apiProvider, symbolList : list):
+        pass

@@ -12,7 +12,7 @@ class Technicals:
     symbol = None
     timeSeries = None
 
-    def __init__(self, symbol, timeSeries, apiProvider=None):
+    def __init__(self, symbol, timeSeries=None, apiProvider=None):
         self.symbol = symbol
         self.timeSeries = timeSeries
         self.apiProvider = None

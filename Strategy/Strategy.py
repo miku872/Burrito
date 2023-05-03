@@ -5,5 +5,10 @@ class Strategy:
         pass
 
     @abstractmethod
-    def runStrategy(self, apiProvider, symbol, initialCap=100000):
+    def runBackTest(self, apiProvider, symbol, initialCap=100000):
         pass
+
+    @abstractmethod
+    def deployStrategy(self, apiProvider, symbolList : list):
+        pass
+

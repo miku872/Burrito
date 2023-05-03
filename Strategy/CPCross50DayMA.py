@@ -8,9 +8,9 @@ class CPCross50DayMA(Strategy):
     def __init__(self):
         self.params = {"candleSize": "DAILY", "window": 50, "maType": "SMA"}
 
-    def runStrategy(self, apiProvider, symbol, initialCap=100000):
+    def runBackTest(self, apiProvider, symbol, initialCap=100000):
         strategy = CPCrossMA(self.params)
-        return strategy.runStrategy(apiProvider, symbol)
+        return strategy.runBackTest(apiProvider, symbol)
 
 
 # def priceGreaterThanSMAWithHighVolumes(symbol, candleSize, smaCPWindow=50, smaVolumeWindow=20):
